@@ -4,13 +4,13 @@ import { User } from "../models/user.model.js"
 export const getAllUsers = async (req, res) => {
     console.log(req.query)
     const users = await User.findAll()
-    console.log(users)
-    res.send('Hello world!')
+    res.json(users)
 }
 
-export const getUser = (req, res) => {
-    console.log(req.params)
-    res.send('Hello world!')
+export const getUser = async (req, res) => {
+    const { uid } = req.params
+    const user = await User.findOneById(uid)
+    res.json(user)
 }
 
 export const createUser = async (req, res) => {
@@ -20,13 +20,15 @@ export const createUser = async (req, res) => {
     res.json(newUser)
 }
 
-export const deleteUser = (req, res) => {
-    console.log(req.params)
-    res.send('Hello world!')
+export const deleteUser = async (req, res) => {
+    const { uid } = req.params
+    const user = await User.remove(uid)
+    res.json(user)
 }
 
-export const updateUser = (req, res) => {
-    console.log(req.params)
-    console.log(req.body)
-    res.send('Hello world!')
+export const updateUser = async (req, res) => {
+    const { uid } = req.params
+    const { valor } = req.body
+    const user = await User.updateSaldo(uid, valor)
+    res.json(user)
 }

@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid"
 import { User } from "../models/user.model.js"
 
 export const getAllUsers = async (req, res) => {
@@ -12,9 +13,11 @@ export const getUser = (req, res) => {
     res.send('Hello world!')
 }
 
-export const createUser = (req, res) => {
-    console.log(req.body)
-    res.send('Hello world!')
+export const createUser = async (req, res) => {
+    const { email } = req.body
+    const uid = nanoid()
+    const newUser = await User.create(uid, email)
+    res.json(newUser)
 }
 
 export const deleteUser = (req, res) => {

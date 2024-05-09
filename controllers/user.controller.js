@@ -1,6 +1,9 @@
+import { User } from "../models/user.model.js"
 
-export const getAllUsers = (req, res) => {
+export const getAllUsers = async (req, res) => {
     console.log(req.query)
+    const users = await User.findAll()
+    console.log(users)
     res.send('Hello world!')
 }
 
